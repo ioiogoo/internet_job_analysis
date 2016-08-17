@@ -1,0 +1,14 @@
+/*设置小标题的样式*/
+div#title {
+	text-align: center;
+	margin: 0px auto 20px auto;
+	font-size: 40px;
+	font-family: '微软雅黑'
+
+}
+
+
+/*分割线*/
+hr {
+	border-width:3px;
+}

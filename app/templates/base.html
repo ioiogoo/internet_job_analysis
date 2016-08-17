@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{%block head %}
+<link rel="shortcut icon" href={{url_for('static', filename='myicon.ico')}}>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js"></script>
+<link href="//cdn.bootcss.com/c3/0.4.11/c3.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/c3/0.4.11/c3.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href={{url_for('static', filename='base.css')}}>
+{%endblock%}
+{%block body%}
+{{super()}}
+<!-- 导入导航条 -->
+{% include "nav.html" %}
+<!-- 下面是前言容器 -->
+{%block preface%}
+{%endblock%}
+<!-- 下面是页面的主要容器 -->
+<div id="container">
+	{%block container%}
+	{%endblock%}
+</div>
+
+<!-- 下面是footer容器 -->
+<div id="footer" class="row">
+	<hr class="col-md-12">
+	<div id="footer_body" class="col-md-6 col-md-offset-3">
+		<p>Designed and built with all the love in the world by <a href="http://www.ioiogoo.cn">@ioiogoo</a>.</p>
+		<p>本项目源码受 MIT开源协议保护，文档受 CC BY 3.0 开源协议保护.</p>
+		<p>感谢以下开源项目：
+			<a href="http://flask.pocoo.org/">Flask</a>、
+			<a href="http://c3js.org/">C3.js</a>、
+			<a href="http://v3.bootcss.com/">Bootstrap</a>
+		</p>
+		<div id="git">
+			<a href="https://github.com/ioiogoo">Github 仓库</a>
+			<b>·</b>
+			<a href="#">关于本项目</a>
+			<b>·</b>
+			<a href="#">Python报告</a>
+		</div>
+	</div>
+</div>
+{%endblock%}

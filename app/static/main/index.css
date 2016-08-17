@@ -1,0 +1,102 @@
+/*设置字体*/
+body {
+	font-family: '微软雅黑细体'
+}
+
+/*设置绿色背景， 四角圆弧*/
+div#tips {
+	background-color: #AFE4AE;
+	border-radius: 10px 10px 10px 10px;
+	padding: 10px;
+	margin: 5px 0 15px 0;
+}
+
+
+/*设置字体大小*/
+div.comment {
+	font-size: 17px;
+}
+
+/*设置评论栏的阴影、圆弧*/
+div#result {
+	box-shadow: 0px 0px 10px 0px #E8E1E1;
+	padding: 10px 20px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+/*设置上下标题间间隔*/
+div#keyword_wrap {
+	margin-top: 20px;
+}
+
+/*设置小标题的样式*/
+div#title {
+	text-align: center;
+	margin: 0px auto 20px auto;
+	font-size: 40px;
+	font-family: '微软雅黑'
+
+}
+
+/*分割线*/
+hr {
+	border-width:3px;
+}
+
+/*设置前言容器蓝色背景*/
+div#preface_wrap {
+	background-color: #6f5499;
+	height: 100%;
+}
+
+
+/*将导航条的下部分距离调整为0*/
+.navbar {
+	margin-bottom: 0px;
+}
+
+/*设置前言容器样式*/
+div#preface {
+	width: 67%;
+	margin: 0 auto;
+	color: #fff;
+	font-family: '微软雅黑'
+}
+
+/*设置前言中大标题样式*/
+div#preface h1 {
+	margin-top: 0px;
+	padding-top: 32px;
+	font-size: 50px
+}
+
+/*设置前言正文样式*/
+div#preface div#information {
+	width: 70%;
+	font-size: 20px;
+	color: #cdbfe3;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/*设置前言栏中a标签样式*/
+div#preface div#information a {
+	color: #93A1E2;
+	font-size: '微软雅黑';
+	text-decoration: underline;
+}
+
+/*设置前言栏中tips标签*/
+div#preface div#information i {
+	color: #93A1E2;
+	font-size: 15px;
+}
+/*以下两个设置作用为保持栅格系统中列高相等*/
+/*.row [class*="col-"]{
+margin-bottom: -99999px;
+padding-bottom: 99999px;
+}
+
+.row {
+overflow: hidden; 
+}

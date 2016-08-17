@@ -1,0 +1,46 @@
+/*响应式调整大小*/
+@media screen and (max-width: 768px) {
+	#container {width: 90%}
+	div.container-fluid {width: 90%}
+}
+
+@media screen and (min-width: 768px) {
+	#container {width: 70%}
+	div.container-fluid {width: 70%}
+}
+
+
+
+#container {
+	/*width: 70%;*/
+	margin: 0 auto;
+}
+
+
+/*设置导航栏宽度*/
+div.container-fluid {
+	/*width: 70%;*/
+}
+
+/*设置footer的分割线*/
+div#footer hr {
+	border-width:1px;
+	margin-bottom: 10px
+}
+
+/*设置footer字体、居中*/
+div#footer_body {
+	text-align: center;
+	font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif
+
+}
+
+/*清除p标签的margin*/
+div#footer_body p {
+	margin: 0 auto;
+}
+
+/*设置github栏目的margin*/
+div#footer_body div#git {
+	margin: 10px auto;
+}

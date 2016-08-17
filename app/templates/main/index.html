@@ -1,0 +1,100 @@
+{%extends 'base.html'%}
+{%block head%}
+{{super()}}
+{%block title%}
+<title>互联网行业招聘需求 统计与分析</title>
+{%endblock%}
+<script type="text/javascript" src={{url_for('static', filename='main/index.js')}}></script>
+<link rel="stylesheet" type="text/css" href={{url_for('static', filename='main/index.css')}}>
+{%endblock%}
+
+{%block preface%}
+<!-- 前言栏 开始 -->
+<div id="preface_wrap" class="row">
+	<div id="preface">
+		<h1>写在前面</h1>
+		<div id="information">
+			本网站全部招聘数据来源于拉勾网在网上的公开信息，所有招聘信息的日期在2016年8月16日左右，由于招聘信息具有时效性，请各位仔细把握信息的准确性。本站只做数据统计与分析，不会用于商业目的。<br>
+			<i>
+				<b>· </b>更多详情请看<a href='#'>About this</a><br>
+				<b>· </b>点击具体模块图可以进入相应模块的具体分析
+			</i>
+		</div>
+	</div>
+</div>
+<!-- 前言栏 结束 -->
+{%endblock%}
+
+{%block container%}
+<!-- 小标题 -->
+<div id="title">不同城市 岗位需求排行</div>
+<!-- 包裹了category的图表和评价 开始-->
+<div id="job_category_wrap" class="row">
+	<!-- 下面是包裹job_category_chart的容器，因为原有的div不支持栅格 -->
+	<div id="job_category_chart_wrap" class="col-md-6">
+		<div id="job_category_chart"></div>
+	</div>
+	<!-- 下面是job_category的评论，和上面在同一行 -->
+	<div id="job_category_comment" class="col-md-3 col-md-offset-1 comment">
+		<div id="tips">
+			<b>· </b>本次统计结果包含了北上广深等226个城市，按岗位需求量排序，取前30位。<br>
+			<b>· </b><i>PS.<b>点击</b>城市柱状图可以进入相应城市查询针对该城市的具体统计信息。</i>
+		</div>
+		<div id="result">
+		从统计结果可以看出来，目前岗位需求比较高的城市还是集中在北、上、广、深四大城市中，除此之外杭州也有很多高科技产业相关的公司，所以需求量也比较高。成都作为中西部的枢纽，这几年互联网企业也逐渐多了起来，求职的话，成都也是个不错的城市。
+		</div>
+	</div>
+</div>
+<!-- category图表结束 -->
+<div id="title"><hr>不同职业 岗位需求比例</div>
+<!-- 职位关键字图表、评论容器 开始 -->
+<div id="keyword_wrap" class="row">
+	<div id="keyword_comment" class="col-md-3 col-md-offset-1 comment">
+		<div id="tips">
+			<b>· </b>本次统计结果包含了Java、Python、IOS、PHP等152个职位的结果，按职业需求量排序，取前30位。<br>
+			<b>· </b><i>PS.<b>点击</b>饼形图可以进入相应职业查询针对该职业的具体统计信息。</i>
+		</div>
+		<div id="result">
+			排名结果前五的职位有点意外，分别是Java、技术经理、PHP、web前端、网络工程师。<br>
+			我大<b>Python</b>居然只排到了第十八位，我不服！
+		</div>
+	</div>
+	<div id="keyword_chart_wrap" class="col-md-6 col-md-offset-1">
+		<div id="keyword_chart"></div>
+	</div>
+</div>
+<!-- 职位关键字结束 -->
+<!-- 小标题 -->
+<div id="title"><hr>不同薪资 所占比例</div>
+<!-- 薪资水平图表、评论容器 开始 -->
+<div id="salary_wrap">
+	<div id="salary_chart_wrap" class="col-md-6">
+		<div id="salary_chart"></div>
+	</div>
+	<div id="salary_comment" class="col-md-3 col-md-offset-1 comment">
+		<div id="tips">
+			<b>· </b>本次统计结果包含了所有薪资种类，按薪资种类数量排序，取前30位。<br>
+			<b>· </b><i>PS.<b>点击</b>薪资饼形图可以进入相应薪资查询针对该薪资的具体统计信息。</i>
+		</div>
+		<div id="result">
+			排名结果前五的薪资种类平均水平都在<b>10k</b>以上，这还是说明了互联网行业薪资水平还是很不错的，我相信互联网的未来会更加值得期待！
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// 生成category图表
+	// 职业岗位数量
+	var job_category_counts = {{job_category_counts}};
+	// 不同城市
+	var city_category = {{city_category|safe}};
+	LoadImage_barChart(job_category_counts, city_category, bindto='#job_category_chart', onclickname='city')
+	// 生成keyword图表
+	var keyword_json = {{keyword_json|safe}}
+	LoadImage_pieChart(keyword_json, bindto='#keyword_chart', onclickname='keyword')
+	// 生成工资图表
+	var salary_json = {{salary_json|safe}}
+	LoadImage_pieChart(salary_json, bindto='#salary_chart', onclickname='salary')
+</script>
+{%endblock%}
+

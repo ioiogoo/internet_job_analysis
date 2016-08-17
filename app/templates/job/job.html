@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+{%block head%}
+{{super()}}
+{%block title%}
+<title>{{keywordname}} | 统计信息</title>
+{%endblock%}
+<script type="text/javascript" src={{url_for('static', filename='job/job.js')}}></script>
+<link rel="stylesheet" type="text/css" href={{url_for('static', filename='job/job.css')}}>
+{%endblock%}
+
+{%block container%}
+<div id="title" class="col-md-12">{{keywordname}}需求量 城市排行</div>
+<!-- 岗位城市排行容器 开始 -->
+<div id="keyword_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="keyword_chart"></div>
+</div>
+<!-- 容器 结束 -->
+<div id="title" class="col-md-12"><hr>{{keywordname}} 薪资占比</div>
+<!-- 薪资水平容器 开始 -->
+<div id="salary_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="salary_chart"></div>
+</div>
+
+<script type="text/javascript">
+	// 生成柱状图
+	var job_category_counts = {{job_category_counts}}
+	var keyword = {{keyword|safe}}
+	LoadImage_barChart(job_category_counts, keyword, bindto='#keyword_chart', onclickname='city')
+	// 生成饼形图
+	var salary_json = {{salary_json|safe}}
+	LoadImage_pieChart(salary_json, bindto='#salary_chart',onclickname='salary')
+</script>
+
+{%endblock%}

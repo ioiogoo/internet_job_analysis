@@ -24,8 +24,8 @@ def index(keywordname):
 			abort(404)
 		salary_json = {key[0].encode('utf-8'):int(key[1]) for key in results}
 		salary_json = json.dumps(salary_json)
-		logger.info('success job.index     url: %s' % request.url)
+		logger.info('success job.index     url: %s    ip: %s' % (request.url, request.remote_addr))
 		return render_template('job/job.html', job_category_counts=job_category_counts, keyword=keyword, keywordname=keywordname, salary_json=salary_json)
 	except Exception as e:
-		logger.warning('job.index error: %s    url: %s' % (e, request.url))
+		logger.warning('job.index error: %s    url: %s    ip: %s' % (e, request.url, request.remote_addr))
 		abort(404)

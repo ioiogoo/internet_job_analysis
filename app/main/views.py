@@ -41,10 +41,10 @@ def index():
 		# 薪资饼形图需要json格式
 		salary_json = {key[0].encode('utf-8'):int(key[1]) for key in results}
 		salary_json = json.dumps(salary_json)
-		logger.info('success main.index     url: %s' % request.url)
+		logger.info('success main.index     url: %s    ip: %s' % (request.url, request.remote_addr))
 		return render_template('main/index.html', job_category_counts=job_category_counts, city_category=city_category, keyword_json=keyword_json, salary_json=salary_json)
 	except Exception as e:
-		logger.warning('main.index error: %s    url: %s' % (e, request.url))
+		logger.warning('main.index error: %s    url: %s    ip: %s' % (e, request.url, request.remote_addr))
 		redirect(url_for('main.index'))
 
 @main.before_app_first_request

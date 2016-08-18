@@ -6,7 +6,7 @@ import logging
 
 # 添加日志信息
 logger = logging.getLogger()
-fh = logging.FileHandler('internet_job_website.log')
+fh = logging.FileHandler('./logs/internet_job_website.log')
 sh = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)

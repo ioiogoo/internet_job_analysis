@@ -1,6 +1,7 @@
 from . import city
-from flask import render_template, current_app, abort
+from flask import render_template, current_app, abort, request
 import json
+from app import logger
 
 @city.route('/<cityname>')
 def index(cityname):
@@ -9,6 +10,7 @@ def index(cityname):
 		current_app.cur.execute(sql)
 		results = current_app.cur.fetchall()
 		if not results:
+			logger.warning('mysqldb has no %s' % cityname)
 			abort(404)
 		job_category_counts = [int(x[1]) for x in results]
 		job_name = [x[0].encode('utf-8') for x in results]
@@ -17,10 +19,12 @@ def index(cityname):
 		current_app.cur.execute(sql)
 		results = current_app.cur.fetchall()
 		if not results:
+			logger.warning('mysqldb has no %s' % cityname)
 			abort(404)
 		salary_json = {key[0].encode('utf-8'):int(key[1]) for key in results}
 		salary_json = json.dumps(salary_json)
+		logger.info('success city.index     url: %s' % request.url)
 		return render_template('/city/city.html', cityname=cityname, job_name=job_name, job_category_counts=job_category_counts, salary_json=salary_json)
 	except Exception as e:
-		print e
+		logger.warning('city.index error: %s    url: %s' % (e, request.url))
 		abort(404)

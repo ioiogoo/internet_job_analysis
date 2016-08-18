@@ -1,6 +1,19 @@
+# *-* coding:utf-8 *-*
 from flask import Flask
 from config import config
 from flask_bootstrap import Bootstrap
+import logging
+
+# 添加日志信息
+logger = logging.getLogger()
+fh = logging.FileHandler('internet_job_website.log')
+sh = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+sh.setFormatter(formatter)
+logger.addHandler(fh)
+logger.addHandler(sh)
+logger.setLevel(logging.DEBUG)
 
 bootstrap = Bootstrap()
 

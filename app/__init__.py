@@ -18,6 +18,7 @@ logger.setLevel(logging.DEBUG)
 bootstrap = Bootstrap()
 
 
+# 工厂函数
 def create_app(ConfigName='DefultConfigName'):
 	app = Flask(__name__)
 

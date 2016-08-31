@@ -72,9 +72,9 @@ div#preface h1 {
 
 /*设置前言正文样式*/
 div#preface div#information {
-	width: 70%;
+	width: 90%;
 	font-size: 20px;
-	color: #cdbfe3;
+	color: #CDBFF9;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
@@ -98,5 +98,5 @@ padding-bottom: 99999px;
 }
 
 .row {
-overflow: hidden; 
+overflow: hidden;
 }

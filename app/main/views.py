@@ -47,6 +47,7 @@ def index():
 		logger.warning('main.index error: %s    url: %s    ip: %s' % (e, request.url, request.remote_addr))
 		redirect(url_for('main.index'))
 
+# 在第一个请求发起时连接数据库
 @main.before_app_first_request
 def mysql_conn():
 	current_app.conn = MySQLdb.connect(host='localhost', user='root', passwd='qwer', charset='utf8', db='lagou')

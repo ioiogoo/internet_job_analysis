@@ -19,6 +19,6 @@
 * [Scrapy](http://scrapy.org/)
 
 # 展示
-* 在线地址 : [互联网行业招聘需求 统计与分析](http://www.caoxz.cn/)
+* 在线地址 : [互联网行业招聘需求 统计与分析](http://www.ikiyomi.cc/)
 * ![](https://github.com/ioiogoo/internet_job_analysis/blob/master/mobile.jpg)
 

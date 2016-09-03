@@ -1,7 +1,8 @@
 {% extends "bootstrap/base.html" %}
 {%block head %}
 <link rel="shortcut icon" href={{url_for('static', filename='myicon.ico')}}>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js"></script>
+<!-- <script src="https://d3js.org/d3.v3.js"></script> -->
+<script src="//cdn.bootcss.com/d3/3.5.10/d3.min.js"></script>
 <link href="//cdn.bootcss.com/c3/0.4.11/c3.css" rel="stylesheet">
 <script src="//cdn.bootcss.com/c3/0.4.11/c3.js"></script>
 <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.js"></script>
@@ -39,7 +40,7 @@
 			<b>·</b>
 			<a href="#">关于本项目</a>
 			<b>·</b>
-			<a href="#">Python报告</a>
+			<a href={{url_for('python.index')}}>Python报告</a>
 		</div>
 	</div>
 </div>

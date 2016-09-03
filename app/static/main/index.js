@@ -29,9 +29,9 @@ function LoadImage_barChart(y, x ,bindto, onclickname){
     			},
     	bar: {
         width: {
-            ratio: 0.5 
+            ratio: 0.5
         }
-    	},	
+    	},
 
 		axis:{
 			x:{
@@ -56,5 +56,137 @@ function LoadImage_pieChart(json, bindto, onclickname){
 			}
 		}
 	})
+}
+// 生成全国地图
+function LoadMap(data, geoCoordMap) {
+    var map_chart_wrap = document.getElementById("map_china_wrap");
+    var map_chart = echarts.init(map_chart_wrap);
+    option = null;
+    // 这个函数可以不要
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord) {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)
+                });
+            }
+        }
+        return res;
+    };
+
+    option = {
+        backgroundColor: '#fff',
+        tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+                return params.name + ' : ' + params.value[2];
+            }
+        },
+    // 下面是映射关系
+        visualMap: {
+            // 自定义分段
+            type: 'piecewise',
+            pieces: [
+            {min: 1, max: 10},
+            {min: 10, max: 100},
+            {min: 100, max: 1000},
+            {min: 1000, max:10000},
+            {min: 10000},
+            // {value: 1, label: '1', color: '#98EFAA'},
+            ],
+            inRange: {
+                    symbolSize: [5, 20],
+                    color: ['#8517A6', '#64117E', '#4B0D5E']
+                    // color: ['purple']
+                },
+            outOfRange: {
+                symbolSize: [5, 30],
+                color: '#f3efff'
+            }
+        },
+    // 设置地理位置坐标系
+        geo: {
+            map: 'china',
+            label: {
+                emphasis: {
+                    show: true
+                }
+            },
+            itemStyle: {
+                normal: {
+                    // areaColor: '#f3e1e1',
+                    areaColor: '#F3F3F3',
+                    borderColor: '#111'
+                },
+                emphasis: {
+                    areaColor: '#a7bcd6'
+                }
+            }
+        },
+        series: [
+            {
+                name: 'city_China',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: convertData(data),
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }
+                }
+            },
+            {
+            name: 'Top 5',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            data: convertData(data.sort(function (a, b) {
+                return b.value - a.value;
+            }).slice(0, 6)),
+            showEffectOn: 'render',
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            hoverAnimation: true,
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: true
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#f4e925',
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
+            },
+            zlevel: 1,
+        },
+        ]
+    };
+    // 生成图表
+    if (option && typeof option === "object") {
+        map_chart.setOption(option, true);
+    };
+    // 定义点击事件
+    map_chart.on('click', function (params) {
+        if (params.componentType == 'series') {
+            window.open('/city/' + params.name);
+        }
+        // window.open('/city/' + params.name);
+    });
 }
 

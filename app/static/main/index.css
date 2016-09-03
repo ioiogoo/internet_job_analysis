@@ -91,6 +91,13 @@ div#preface div#information i {
 	color: #93A1E2;
 	font-size: 15px;
 }
+
+/*设置全国分布图大小*/
+div#map_china_wrap {
+	height: 500px;
+	margin-top: -30px;
+
+}
 /*以下两个设置作用为保持栅格系统中列高相等*/
 /*.row [class*="col-"]{
 margin-bottom: -99999px;

@@ -33,6 +33,8 @@ def create_app(ConfigName='DefultConfigName'):
 	app.register_blueprint(job, url_prefix='/keyword')
 	from .salary import salary
 	app.register_blueprint(salary, url_prefix='/salary')
+	from .python import python
+	app.register_blueprint(python, url_prefix='/python_analysis')
 
 
 	return app

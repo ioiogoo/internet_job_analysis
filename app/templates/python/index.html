@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%block head%}
+{{super()}}
+{%block title%}
+<title>Python 分析报告</title>
+{%endblock%}
+<link rel="stylesheet" type="text/css" href={{url_for('static', filename='python/python.css')}}>
+<!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script> -->
+<script src="//cdn.bootcss.com/echarts/3.2.3/echarts.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+{%endblock%}
+
+{%block container%}
+<div id="map_chart_wrap"  class="col-md-10 col-md-offset-1"></div>
+<script type="text/javascript">
+    var geoCoordMap = {{geoCoordMap|safe}};
+    var data = {{data|safe}}
+</script>
+<script type="text/javascript" src={{url_for('static', filename='python/python.js')}}></script>
+{%endblock%}

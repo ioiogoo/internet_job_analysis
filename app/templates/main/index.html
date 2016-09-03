@@ -6,6 +6,8 @@
 {%endblock%}
 <script type="text/javascript" src={{url_for('static', filename='main/index.js')}}></script>
 <link rel="stylesheet" type="text/css" href={{url_for('static', filename='main/index.css')}}>
+<script src="//cdn.bootcss.com/echarts/3.2.3/echarts.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 {%endblock%}
 
 {%block preface%}
@@ -25,9 +27,14 @@
 <!-- 前言栏 结束 -->
 {%endblock%}
 
-{%block container%}
+{%block container%}<!-- 小标题 -->
+<div id="title">全国互联网职位 需求分布图</div>
+<div id="map_china_contain" class="row">
+	<!-- 下面是全国岗位分布图的容器 -->
+	<div id="map_china_wrap" class="col-md-10 col-md-offset-1"></div>
+</div>
 <!-- 小标题 -->
-<div id="title">不同城市 岗位需求排行</div>
+<div id="title"><hr>不同城市 岗位需求排行</div>
 <!-- 包裹了category的图表和评价 开始-->
 <div id="job_category_wrap" class="row">
 	<!-- 下面是包裹job_category_chart的容器，因为原有的div不支持栅格 -->
@@ -84,6 +91,10 @@
 </div>
 
 <script type="text/javascript">
+	// 生成地图
+	var data = {{data|safe}};
+	var geoCoordMap = {{geoCoordMap|safe}}
+	LoadMap(data, geoCoordMap);
 	// 生成category图表
 	// 职业岗位数量
 	var job_category_counts = {{job_category_counts}};

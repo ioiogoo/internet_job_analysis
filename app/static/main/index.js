@@ -98,7 +98,7 @@ function LoadMap(data, geoCoordMap) {
             // {value: 1, label: '1', color: '#98EFAA'},
             ],
             inRange: {
-                    symbolSize: [5, 20],
+                    symbolSize: [6, 20],
                     color: ['#8517A6', '#64117E', '#4B0D5E']
                     // color: ['purple']
                 },

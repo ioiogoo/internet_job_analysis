@@ -44,7 +44,7 @@ def index():
         salary_json = json.dumps(salary_json)
         logger.info('success main.index     url: %s    ip: %s' % (request.url, request.remote_addr))
         # 全国分布图需要数据
-        sql = ''' select city,count(*) from job_info  group by city order by count(*) DESC limit 100'''
+        sql = ''' select city,count(*) from job_info  group by city order by count(*) DESC limit 300'''
         current_app.cur.execute(sql)
         results = current_app.cur.fetchall()
         data = [dict(name=x[0].encode('utf-8'), value=int(x[1])) for x in results]

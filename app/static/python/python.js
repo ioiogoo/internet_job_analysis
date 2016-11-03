@@ -1,104 +1,190 @@
-var map_chart_wrap = document.getElementById("map_chart_wrap");
-var map_chart = echarts.init(map_chart_wrap);
-option = null;
-
-var convertData = function (data) {
-    var res = [];
-    for (var i = 0; i < data.length; i++) {
-        var geoCoord = geoCoordMap[data[i].name];
-        if (geoCoord) {
-            res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-            });
+// 生成全国地图分布图
+function LoadMap(data, geoCoordMap) {
+    var map_chart_wrap = document.getElementById("map_chart_wrap");
+    var map_chart = echarts.init(map_chart_wrap);
+    option = null;
+    // 这个函数可以不要
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord) {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)
+                });
+            }
         }
-    }
-    return res;
-};
+        return res;
+    };
 
-option = {
-    backgroundColor: '#fff',
-    title: {
-        text: '全国Python岗位需求量',
-        subtext: 'data from Lagou',
-        x:'center',
-        textStyle: {
-            color: '#000'
-        }
-    },
-    tooltip: {
-        trigger: 'item',
-        formatter: function (params) {
-            return params.name + ' : ' + params.value[2];
-        }
-    },
-
-    visualMap: {
-        type: 'piecewise',
-        pieces: [
-        {value: 1, label: '1', color: '#98EFAA'},
-        {min: 1, max: 10},
-        {min: 11, max: 110},
-        {value: 213, label: '213'},
-        {value: 469, label: '469'},
-        {min: 110},
-        ],
-        inRange: {
-                symbolSize: [5, 30],
-                // color: ['#E0022B', '#E09107', '#A3E00B']
-                color: ['#f6efa6', '#d88273', '#bf444c']
-            },
-        outOfRange: {
-            symbolSize: [10, 30],
-            color: '#f3efff'
-        }
-    },
-
-    geo: {
-        map: 'china',
-        label: {
-            emphasis: {
-                show: true
+    option = {
+        backgroundColor: '#fff',
+        tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+                return params.name + ' : ' + params.value[2];
             }
         },
-        itemStyle: {
-            normal: {
-                areaColor: '#f3e1e1',
-                borderColor: '#111'
-            },
-            emphasis: {
-                areaColor: '#bbb'
-            }
-        }
-    },
-    series: [
-        {
-            name: 'Python',
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: convertData(data),
-            label: {
-                normal: {
-                    show: false
+    // 下面是映射关系
+        visualMap: {
+            // 自定义分段
+            type: 'piecewise',
+            pieces: [
+            {min: 1, max: 10},
+            {min: 10, max: 100},
+            {min: 100, max: 1000},
+            // {value: 1, label: '1', color: '#98EFAA'},
+            ],
+            inRange: {
+                    symbolSize: [6, 20],
+                    color: ['#8517A6', '#64117E', '#4B0D5E']
+                    // color: ['purple']
                 },
+            outOfRange: {
+                symbolSize: [5, 30],
+                color: '#f3efff'
+            }
+        },
+    // 设置地理位置坐标系
+        geo: {
+            map: 'china',
+            label: {
                 emphasis: {
-                    show: false
+                    show: true
                 }
             },
             itemStyle: {
+                normal: {
+                    // areaColor: '#f3e1e1',
+                    areaColor: '#F3F3F3',
+                    borderColor: '#111'
+                },
                 emphasis: {
-                    borderColor: '#fff',
-                    borderWidth: 1
+                    areaColor: '#a7bcd6'
                 }
             }
+        },
+        series: [
+            {
+                name: 'city_China',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: convertData(data),
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }
+                }
+            },
+            {
+            name: 'Top 5',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            data: convertData(data.sort(function (a, b) {
+                return b.value - a.value;
+            }).slice(0, 6)),
+            showEffectOn: 'render',
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            hoverAnimation: true,
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: true
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#f4e925',
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
+            },
+            zlevel: 1,
+        },
+        ]
+    };
+    // 生成图表
+    if (option && typeof option === "object") {
+        map_chart.setOption(option, true);
+    };
+    // 定义点击事件
+    map_chart.on('click', function (params) {
+        if (params.componentType == 'series') {
+            window.open('/city/' + params.name);
         }
-    ]
-};
-if (option && typeof option === "object") {
-    map_chart.setOption(option, true);
-};
+        // window.open('/city/' + params.name);
+    });
+}
 
-map_chart.on('click', function (params) {
-    // 控制台打印数据的名称
-    console.log(params.name);
-});
+// 生成柱状图 第一个参数y轴，第二个参数x轴， 第三个参数绑定元素
+function LoadImage_barChart(y, x ,bindto, onclickname){
+    var data_list = ['招聘岗位数量'].concat(y)
+    var chart = c3.generate({
+        bindto:bindto,
+        data : {
+            columns:[
+            data_list,
+            ],
+
+            type: 'bar',
+
+            labels:{
+                format:{
+                    招聘岗位数量:d3.format('')
+                }
+            },
+            onclick: function(d,i){
+                console.log(d)
+                var cityIndex = d.x;
+                var city = x[cityIndex];
+                window.open('/' + onclickname+ '/' + city)
+            }
+        },
+
+        legend: {
+        show : false,
+        position: 'right',
+                },
+        bar: {
+        width: {
+            ratio: 0.5
+        }
+        },
+
+        axis:{
+            x:{
+                type:'category',
+                categories :x
+            }
+        }
+    })
+}
+
+
+// 生成饼形图,第一个参数是json数据{'name':'calue', ...}，第二个参数绑定元素，第三个参数是点击后参数变化
+function LoadImage_pieChart(json, bindto, onclickname){
+    var chart = c3.generate({
+        bindto: bindto,
+        data :{
+            json:json,
+            type: 'pie',
+            onclick : function(d,i) {
+                var keyword = d.id;
+                window.open('/' + onclickname + '/' + keyword)
+            }
+        }
+    })
+}

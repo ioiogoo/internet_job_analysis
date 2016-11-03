@@ -1,3 +1,27 @@
+/*设置字体*/
+body {
+	font-family: '微软雅黑细体'
+}
+
+/*设置全国地图样式*/
 div#map_chart_wrap {
     height: 500px;
+}
+
+
+/*设置小标题的样式*/
+div#title {
+	text-align: center;
+	margin: 0px auto 20px auto;
+	font-size: 40px;
+	font-family: '微软雅黑'
+}
+
+/*设置评论栏样式*/
+div#comment {
+	box-shadow: 0px 0px 10px 0px #E8E1E1;
+	padding: 10px 20px;
+	border-radius: 10px 10px 10px 10px;
+	margin-top: 30px;
+	font-size: 17px;
 }

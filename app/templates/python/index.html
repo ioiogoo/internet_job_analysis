@@ -11,10 +11,81 @@
 {%endblock%}
 
 {%block container%}
+<!-- 小标题 -->
+<div id="title">Python岗位 需求分布图</div>
+<!-- 下面是全国地图容器 -->
+<div class="row">
 <div id="map_chart_wrap"  class="col-md-10 col-md-offset-1"></div>
+<!-- 全国地图结束 -->
+</div>
+<div id="title" class="col-md-12"><hr>Python需求量 城市排行</div>
+<!-- 岗位城市排行容器 开始 -->
+<div class="row">
+<div id="city_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="city_chart"></div>
+</div>
+<!-- <div id="comment" class="col-md-10 col-md-offset-1">
+	随着近几年机器学习和数据分析越来越火热，Python的需求量也越来越多。
+	但是受限于互联网的人才招聘，Python岗位需求量比较多的城市还是分布在北上广深这些地方。
+</div> -->
+</div>
+<!-- 容器 结束 -->
+<div id="title" class="col-md-12"><hr>Python 薪资占比</div>
+<!-- 薪资水平容器 开始 -->
+<div class="row">
+<div id="salary_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="salary_chart"></div>
+</div>
+</div>
+<!-- 容器结束 -->
+<div id="title" class="col-md-12"><hr>Python 公司规模</div>
+<!-- 公司规模容器 开始 -->
+<div class="row">
+<div id="companySize_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="companySize_chart"></div>
+</div>
+</div>
+<!-- 容器结束 -->
+<div id="title" class="col-md-12"><hr>要求工作年限</div>
+<!-- 工作年限容器 开始 -->
+<div class="row">
+<div id="workYear_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="workYear_chart"></div>
+</div>
+</div>
+<!-- 容器结束 -->
+<div id="title" class="col-md-12"><hr>融资情况</div>
+<!-- 融资情况 开始 -->
+<div class="row">
+<div id="financeStage_chart_wrap" class="col-md-10 col-md-offset-1">
+	<div id="financeStage_chart"></div>
+</div>
+</div>
+<!-- 容器结束 -->
+
+
+<script type="text/javascript" src={{url_for('static', filename='python/python.js')}}></script>
 <script type="text/javascript">
+	// 生成全国地图分布图
     var geoCoordMap = {{geoCoordMap|safe}};
     var data = {{data|safe}}
+    LoadMap(data, geoCoordMap);
+    // 生成柱状图
+	var job_category_counts = {{job_category_counts}};
+	var city_category = {{city_category|safe}};
+	LoadImage_barChart(job_category_counts, city_category, bindto='#city_chart', onclickname='city');
+	// 生成工资饼形图
+	var salary_json = {{salary_json|safe}}
+	LoadImage_pieChart(salary_json, bindto='#salary_chart',onclickname='salary');
+	// 生成规模饼形图
+	var salary_json = {{companySize_json|safe}}
+	LoadImage_pieChart(salary_json, bindto='#companySize_chart');
+	// 生成工作年限饼形图
+	var salary_json = {{workYear_json|safe}}
+	LoadImage_pieChart(salary_json, bindto='#workYear_chart');
+	// 生成融资情况饼形图
+	var salary_json = {{financeStage_json|safe}}
+	LoadImage_pieChart(salary_json, bindto='#financeStage_chart');
 </script>
-<script type="text/javascript" src={{url_for('static', filename='python/python.js')}}></script>
+
 {%endblock%}
